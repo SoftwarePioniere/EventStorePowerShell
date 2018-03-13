@@ -13,6 +13,11 @@ $env:PSModulePath = $env:PSModulePath + ";$(Get-Location)"
 
 Get-Module -ListAvailable
 
+#Start Local Shell
+powershell -File .\Prepare-Env.ps1
+powershell -Command ".\Prepare-Env.ps1" -NoExit
+
+
 ```
 
 ## Links
