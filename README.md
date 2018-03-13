@@ -5,26 +5,17 @@ PowerShell Module for Managing the EventStore from geteventstore.com
 ## Local Development
 
 ```
-Run as Administrator
+#list module path
+$env:PSModulePath -split ';'
 
-#Link folder to Powershell Modules Directory
+#adding local folder to PSModulePath
+$env:PSModulePath = $env:PSModulePath + ";$(Get-Location)"
 
-$originalPath =  "$(Get-Location)"
-$pathInModuleDir = 'C:\Program Files\WindowsPowerShell\Modules\EventStorePowerShell'
+Get-Module -ListAvailable
 
-New-Item -ItemType SymbolicLink -Path $pathInModuleDir -Target $originalPath
-
-#Unlink Folder -- not wokring
-Remove-Item -Path $pathInModuleDir -Force -Recurse
-
-```
-
-## Publishing
-
-```
-Publish-Module -Name EventStorePowerShell -NuGetApiKey <apiKey>
 ```
 
 ## Links
 
 http://ramblingcookiemonster.github.io/Building-A-PowerShell-Module/
+https://kevinmarquette.github.io/2017-05-27-Powershell-module-building-basics/?utm_source=blog&utm_medium=blog&utm_content=psrepository

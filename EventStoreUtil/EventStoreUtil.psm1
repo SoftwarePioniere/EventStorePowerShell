@@ -1,0 +1,1 @@
+Import-Module $PSScriptRoot\..\Scripts\Test-EventStoreRunning.psm1

@@ -1,5 +1,5 @@
 @{
-    ModuleVersion     = "0.0.2";
+    ModuleVersion     = "0.0.1";
     GUID              = "ee3a4791-4509-4eb2-895f-b159037102c1";
     Author            = "Tobias Boeker";
     CompanyName       = "Softwarepioniere GmbH & Co. KG";
@@ -7,8 +7,13 @@
     Description       = "PowerShell Module for Managing the EventStore (geteventstore)";
     PowerShellVersion = "4.0";
     CLRVersion        = "4.0";
-    FunctionsToExport = "*";
+    FunctionsToExport = "Test-EventStoreRunning";
     CmdletsToExport   = "*";
-    RootModule        = "EventStorePowerShell.psm1"
+    RootModule        = "EventStoreUtil.psm1"
+    PrivateData = @{
+        PSData = @{
+            ProjectUri = 'https://github.com/SoftwarePioniere/EventStoreUtilPowerShell'
+        }    
+    }
 }
 
