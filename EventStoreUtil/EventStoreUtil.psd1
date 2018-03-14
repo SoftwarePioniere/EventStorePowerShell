@@ -5,7 +5,7 @@
     CompanyName       = "Softwarepioniere GmbH & Co. KG";
     Copyright         = "(c) 2018 Softwarepioniere GmbH & Co. KG. Alle Rechte vorbehalten.";
     Description       = "PowerShell Module for Managing the EventStore (geteventstore)";
-    PowerShellVersion = "4.0";
+    PowerShellVersion = "3.0";
     CLRVersion        = "4.0";
     FunctionsToExport = "*";
     RootModule        = "EventStoreUtil.psm1"
