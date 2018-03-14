@@ -8,7 +8,6 @@
     PowerShellVersion = "4.0";
     CLRVersion        = "4.0";
     FunctionsToExport = "*";
-    CmdletsToExport   = "*";
     RootModule        = "EventStoreUtil.psm1"
     PrivateData = @{
         PSData = @{

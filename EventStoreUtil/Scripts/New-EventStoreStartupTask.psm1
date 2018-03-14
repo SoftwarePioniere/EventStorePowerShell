@@ -1,4 +1,4 @@
-function Set-EventStoreStartupTask()
+function New-EventStoreStartupTask()
 {
     [Cmdletbinding()]
     Param(
@@ -27,4 +27,4 @@ function Set-EventStoreStartupTask()
 
 }
 
-Export-ModuleMember 'Set-EventStoreStartupTask'
+Export-ModuleMember 'New-EventStoreStartupTask'

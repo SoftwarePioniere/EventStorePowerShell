@@ -1,4 +1,4 @@
-function Exit-EventStore{
+function Stop-EventStore{
 
     [Cmdletbinding()]
     Param(
@@ -24,4 +24,4 @@ function Exit-EventStore{
     Start-Sleep -s 2
 }
 
-Export-ModuleMember 'Exit-EventStore'
+Export-ModuleMember 'Stop-EventStore'
