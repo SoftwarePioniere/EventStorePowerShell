@@ -11,12 +11,19 @@ $env:PSModulePath -split ';'
 #adding local folder to PSModulePath
 $env:PSModulePath = $env:PSModulePath + ";$(Get-Location)"
 
-Get-Module -ListAvailable
+Get-Module -ListAvailable -Name EventStoreUtil
 
 #Start Local Shell
-powershell -File .\Prepare-Env.ps1
-powershell -Command ".\Prepare-Env.ps1" -NoExit
+powershell
+.\Prepare-Env.ps1
 
+
+#Link folder to Powershell Modules Directory
+
+$originalPath =  "$(Get-Location)\EventStoreUtil"
+$pathInModuleDir = 'C:\Program Files\WindowsPowerShell\Modules\EventStoreUtil'
+
+New-Item -ItemType SymbolicLink -Path $pathInModuleDir -Target $originalPath
 
 ```
 
