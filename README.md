@@ -2,6 +2,38 @@
 
 PowerShell Module for Managing the EventStore from geteventstore.com
 
+## Samples
+
+```
+Write-Host "Setting Module Path ..."
+$env:PSModulePath = $env:PSModulePath + ";$(Get-Location)"
+
+Write-Host "Creating Credentials"
+
+Write-Host "changeit SecureString"
+$changeit = ConvertTo-SecureString "changeit" -AsPlainText -Force
+
+Write-Host "adminchangeit PSCredential"
+$adminchangeit = New-Object System.Management.Automation.PSCredential('admin', $changeit)
+
+Write-Host "adminchangeit Password:"
+$adminchangeit.UserName
+$adminchangeit.GetNetworkCredential().Password
+
+$changedit= ConvertTo-SecureString "changedit" -AsPlainText -Force
+$opschangedit = New-Object System.Management.Automation.PSCredential('ops', $changedit)
+
+#Test-EventStoreRunning
+#Stop-EventStore -credential $adminchangeit
+#Test-EventStoreUserHasPassword -credential $adminchangeit
+
+#Set-EventStoreUserPassword -credential $adminchangeit -user $opschangedit
+#Test-EventStoreUserHasPassword -credential $opschangedit
+
+#Assert-EventStoreUserHasPassword -credential $adminchangeit -user $opschangedit
+Test-EventStoreUserHasPassword -credential $opschangedit
+```
+
 ## Local Development
 
 ```

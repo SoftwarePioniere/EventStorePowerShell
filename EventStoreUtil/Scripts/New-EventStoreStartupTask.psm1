@@ -23,7 +23,7 @@ function New-EventStoreStartupTask()
     Write-Verbose ":: Register Scheduled Task"
     Register-ScheduledTask -TaskName $taskname -Trigger $trigger -Action $action -Principal $principal -ThrottleLimit 0
 
-    Write-Host "!"
+    Write-Information "!"
 
 }
 

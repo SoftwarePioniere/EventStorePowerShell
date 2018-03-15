@@ -7,7 +7,13 @@
     Description       = "PowerShell Module for Managing the EventStore (geteventstore)";
     PowerShellVersion = "3.0";
     CLRVersion        = "4.0";
-    FunctionsToExport = "*";
+    FunctionsToExport = @("Assert-EventStoreUserHasPassword"
+                        ,"Set-EventStoreStartupTask" 
+                        ,"Set-EventStoreUserPassword"
+                        ,"Stop-EventStore"
+                        ,"Test-EventStoreRunning"
+                        ,"Test-EventStoreStartupTask"
+                        ,"Test-EventStoreUserHasPassword")
     RootModule        = "EventStoreUtil.psm1"
     PrivateData = @{
         PSData = @{

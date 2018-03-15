@@ -1,5 +1,6 @@
 function Test-EventStoreRunning {
 
+    [OutputType('System.Boolean')]
     [cmdletbinding()]
     Param(
         [String]    $url = "http://localhost:2113" ,
@@ -7,7 +8,7 @@ function Test-EventStoreRunning {
         [Int]       $secondsToWait = 1
     )
     
-    Write-Verbose -Message (":: Testing EventStore on URL: $url")
+    Write-Information ":: Testing EventStore on URL: $url"
 
     $i = 1;
     while ($i -ne $repeats) {

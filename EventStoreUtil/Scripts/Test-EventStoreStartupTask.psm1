@@ -1,5 +1,6 @@
 function Test-EventStoreStartupTask()
 {
+    [OutputType('System.Boolean')]
     [Cmdletbinding()]
     Param(       
         [String] $taskname
