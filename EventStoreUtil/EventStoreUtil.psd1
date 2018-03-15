@@ -8,7 +8,7 @@
     PowerShellVersion = "3.0";
     CLRVersion        = "4.0";
     FunctionsToExport = @("Assert-EventStoreUserHasPassword"
-                        ,"Set-EventStoreStartupTask" 
+                        ,"New-EventStoreStartupTask" 
                         ,"Set-EventStoreUserPassword"
                         ,"Stop-EventStore"
                         ,"Test-EventStoreRunning"
