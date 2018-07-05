@@ -7,10 +7,6 @@ function Assert-EventStoreUserHasPassword {
         [System.Management.Automation.PSCredential] $credential
     )
 
-    # Write-Host "Test-UserHasPassword with Old Password"
-    # $hasOld = Test-EventStoreUserHasPassword $url $user $oldpassword
-    # Write-Host "HasOldPasssword $hasOld"
-
     Write-Information "Test-UserHasPassword with New Password"
     $hasNew = Test-EventStoreUserHasPassword -url $url -credential $user
     Write-Information "HasNewPassword $hasNew"
@@ -69,7 +65,14 @@ function Set-EventStoreUserPassword{
         [System.Management.Automation.PSCredential] $credential
     )
 
-    Write-Verbose ":: Setting the Password for User: ($user.UserName) with Admin User: ($credential.UserName) on URL:$url"
+    $username = $user.UserName;
+    $adminname = $credential.UserName;
+
+    $unsecureCreds = $credential.GetNetworkCredential()
+    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $unsecureCreds.UserName,$unsecureCreds.Password)))
+    Remove-Variable unsecureCreds
+
+    Write-Verbose ":: Setting the Password for User: $username with Admin User: $adminname on URL:$url"
 
     $url = -join ( $url , '/users/', $user.UserName , '/command/reset-password' )
     Write-Verbose ":: Rest URL: $url"
@@ -78,7 +81,7 @@ function Set-EventStoreUserPassword{
 
     Write-Verbose ":: JSON: $JSON"
     Write-Verbose ":: Invoking RestMethod"
-    Invoke-RestMethod $url -Credential $credential -Method Post -Body $JSON -ContentType "application/json"
+    Invoke-RestMethod $url -Credential $credential -Method Post -Body $JSON -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
 
     Write-Verbose ":: Waiting 2 seconds"
     Start-Sleep -s 2
@@ -97,10 +100,12 @@ function Stop-EventStore{
     $url = -join ( $url , '/admin/shutdown' )
     Write-Verbose (":: Rest URL: $url")
 
-   # $credential = New-Object System.Management.Automation.PSCredential($adminuser, $adminpassword)
+    $unsecureCreds = $credential.GetNetworkCredential()
+    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $unsecureCreds.UserName,$unsecureCreds.Password)))
+    Remove-Variable unsecureCreds
 
     Write-Verbose ":: Invoking RestMethod"
-    Invoke-RestMethod $url -Credential $credential -Method Post -ContentType "application/json"
+    Invoke-RestMethod $url -Credential $credential -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
 
     Write-Verbose ":: Waiting 2 sekunden"
     Start-Sleep -s 2
@@ -167,18 +172,23 @@ function Test-EventStoreUserHasPassword{
         [System.Management.Automation.PSCredential] $credential
     )
 
+    $user = $credential.UserName;
+    Write-Verbose ":: UserName: $user"
     Write-Verbose ":: Check if User: $user Has Password on URL:$url"
 
-  #  $credential = New-Object System.Management.Automation.PSCredential($user, $password)
-    # $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user,$password)))
+    $unsecureCreds = $credential.GetNetworkCredential()
+    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $unsecureCreds.UserName,$unsecureCreds.Password)))
+    Remove-Variable unsecureCreds
 
     $url = $url + '/users/' + $user
+
     Write-Verbose ":: Rest URL: $url"
 
     try {
         Write-Verbose ":: Try Invoke with Credentials $url"
-        $response = Invoke-RestMethod  $url -Credential $credential -Method Get
-        Write-Verbose ":: Response StatusCode: $response.StatusCode"
+        $response = Invoke-RestMethod $url -Credential $credential -Method Get -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+        $responseStatusCode = $response.success
+        Write-Verbose ":: Response StatusCode: $responseStatusCode"
         Write-Verbose ":: Response: $response"
         Write-Verbose ":: Benutzer $user kann sich mit dem Kennwort anmelden"
         return $true # benutzer kann
