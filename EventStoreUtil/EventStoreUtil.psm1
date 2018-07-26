@@ -30,7 +30,7 @@ function Assert-EventStoreUserHasPassword {
 }
 function New-EventStoreStartupTask()
 {
-    [Cmdletbinding()]
+    [Cmdletbinding(SupportsShouldProcess)]
     Param(
         [String] $taskname,
         [String] $dir
@@ -58,7 +58,7 @@ function New-EventStoreStartupTask()
 }
 function Set-EventStoreUserPassword{
 
-    [Cmdletbinding()]
+    [Cmdletbinding(SupportsShouldProcess)]
     Param(
         [String]    $url = "http://localhost:2113",
         [System.Management.Automation.PSCredential] $user,

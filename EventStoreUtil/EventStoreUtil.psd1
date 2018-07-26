@@ -8,7 +8,7 @@
     PowerShellVersion = "3.0";
     CLRVersion        = "4.0";
     FunctionsToExport = @("Assert-EventStoreUserHasPassword"
-                        ,"New-EventStoreStartupTask" 
+                        ,"New-EventStoreStartupTask"
                         ,"Set-EventStoreUserPassword"
                         ,"Stop-EventStore"
                         ,"Test-EventStoreRunning"
@@ -18,7 +18,7 @@
     PrivateData = @{
         PSData = @{
             ProjectUri = 'https://github.com/SoftwarePioniere/EventStoreUtilPowerShell'
-        }    
+        }
     }
 }
 
